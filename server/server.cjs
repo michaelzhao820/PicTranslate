@@ -7,14 +7,12 @@ const { Translate } = require('@google-cloud/translate').v2;
 
 const { GOOGLE_APPLICATION_CREDENTIALS, PORT } = result.parsed;
 
-const credentials = JSON.parse(GOOGLE_APPLICATION_CREDENTIALS);
-
 const visionClient = new ImageAnnotatorClient({
-  credentials
+  keyFilename: GOOGLE_APPLICATION_CREDENTIALS
 });
 
 const translateClient = new Translate({
-  credentials
+  keyFilename: GOOGLE_APPLICATION_CREDENTIALS
 });
 
 const app = express();
@@ -27,6 +25,7 @@ const upload = multer({ storage: storage });
 app.use(express.json());
 app.use(cors({
   origin: 'https://pic-translate.vercel.app',
+
 }));
 
 // Initialize processing status and data
@@ -34,8 +33,8 @@ let processingStatus = 'Idle';
 let processedData = null;
 
 app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+  res.send('Hello World')
+})
 
 app.post('/upload', upload.single('myFile'), async (req, res) => {
   try {
