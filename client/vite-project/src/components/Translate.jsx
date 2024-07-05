@@ -38,7 +38,7 @@ const Translate = () => {
       formData.append("sourceLanguage", sourceLanguage);
       formData.append("targetLanguage", targetLanguage);
       // Post image data to server
-      await axios.post("http://localhost:3000/upload", formData);
+      await axios.post("https://pictranslate.onrender.com/upload", formData);
     } else {
       alert('Please select a .png or .jpeg image.');
       setIsLoading(false);
@@ -47,7 +47,7 @@ const Translate = () => {
   };
   useEffect(() => {
       const fetchStatus = async () => {
-      const response = await axios.get("http://localhost:3000/status");
+      const response = await axios.get("https://pictranslate.onrender.com/status");
       if (response.data.status === 'Processed') {
         if (response.data.data === '') {
           setTranslatedText('Image was not properly analyzed. Please crop the image to include more of the character to be viewed');
