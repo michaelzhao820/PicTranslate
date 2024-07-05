@@ -1,4 +1,4 @@
-const result =  require('dotenv').config({ path: '../.env' });
+const result = require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
@@ -23,11 +23,18 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://pic-translate.vercel.app',
+
+}));
 
 // Initialize processing status and data
 let processingStatus = 'Idle';
 let processedData = null;
+
+app.get('/', (req, res) => {
+  res.send('Hello World')
+})
 
 app.post('/upload', upload.single('myFile'), async (req, res) => {
   try {
