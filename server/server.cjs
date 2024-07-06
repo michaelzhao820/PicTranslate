@@ -5,9 +5,8 @@ const cors = require('cors');
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
 const { Translate } = require('@google-cloud/translate').v2;
 
-const { GOOGLE_APPLICATION_CREDENTIALS, PORT } = result.parsed;
 
-const credentials = JSON.parse(GOOGLE_APPLICATION_CREDENTIALS);
+const credentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
 const visionClient = new ImageAnnotatorClient({
   credentials
@@ -18,7 +17,7 @@ const translateClient = new Translate({
 });
 
 const app = express();
-const port = PORT || 3000;
+const port = process.env.PORT || 3000;
 
 // Set multer to store files in memory
 const storage = multer.memoryStorage();
